@@ -5,8 +5,8 @@ let slider;
 function setup(){
     createCanvas(600,600);
     leader = new Leader;
-    for (let i = 0; i < random(20,100); i++) {
-    followers.push(new follower());
+    for (let i = 0; i < 20; i++) {
+    followers.push(new follower(0,0));
     }
 
   slider = createSlider(0, 6, 1,0.001);
@@ -55,8 +55,14 @@ class Leader{
 }
 
 class follower{
-  constructor(){
-    this.location = createVector(random(0,width),random(0,height));
+  constructor(x,y){
+    if (x!=0){
+      this.location = createVector(x,y);
+    }
+    else{
+      this.location = createVector(random(0,width),random(0,height));
+    }
+    
     this.velocity = createVector(0,0);
     this.acceleration = createVector(0,0);
     this.radius = random(10,50);
@@ -93,4 +99,8 @@ class follower{
             this.velocity.x = this.velocity.x * -1
         }
     }
+}
+
+function mouseDragged() {
+  followers.push(new follower(mouseX, mouseY));
 }
