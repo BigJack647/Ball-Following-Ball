@@ -1,12 +1,18 @@
 let leader;
 let followers = [];
+let slider;
 
 function setup(){
     createCanvas(600,600);
     leader = new Leader;
     for (let i = 0; i < random(20,100); i++) {
     followers.push(new follower());
-  }
+    }
+
+  slider = createSlider(0, 6, 1,0.001);
+  slider.position(10, 10);
+  slider.style('width', '170px');
+  
 }
 
 function draw(){
@@ -69,12 +75,13 @@ class follower{
 
 
   show(){
+    this.new_radius = this.radius * slider.value();
     this.colour_holder = createVector(leader.location.x,leader.location.y);
     this.colour_holder.sub(this.location);
     this.c = this.colour_holder.mag()
     fill(this.c);
     noStroke();
-    ellipse(this.location.x,this.location.y,this.radius);
+    ellipse(this.location.x,this.location.y,this.new_radius);
     
   }
 
